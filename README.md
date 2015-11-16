@@ -1,1 +1,1 @@
-<h1> this is site to beautifier your code to html tags</h1>
+<h1>beautify your codes to html tags</h1>
