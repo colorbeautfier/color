@@ -3,8 +3,65 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src="lib/colorscript.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script>
+
+        // data 바인딩
+
+        $.ajax({
+            method: "GET",
+            url: "testjs",
+            data: { name: "John", location: "Boston" }
+        })
+                .done(function( msg ) {
+                    //alert( "Data Saved: " + msg );
+                    $('#before').html(msg);
+                });
+
+        function change () {
+            var language  = colorScripting.getLanguage("javascript", "sh");
+            language.setContent(document.getElementById('before').innerHTML);
+            language.execute();
+
+            var message = document.getElementById('before').innerHTML;
+
+
+           // message = message.replace(/\n/g, '<br>');
+            message = message.replace(/\/\*[^]*?\*\//g, helpLinkConvert);
+            console.log(message);
+
+        }
+
+
+        function helpLinkConvert(str, p1, offset, s) {
+            console.log("str :" + str );
+            console.log("p1 :" + p1 );
+            console.log("offset :" + offset );
+            console.log("s :" + s );
+            return "<주석"+p1+"\">"+str+"</여기>";
+        }
+
+    </script>
 </head>
 <body>
+<button onclick="change()">changeBtn </button>
+<br>
+<div style="width:45%; min-height:300px;">
+    <textarea id="before" style="width:100%; min-height:300px;">
 
+    </textarea>
+</div>
+<br>
+
+<div id="content" style="width:45%; min-height:300px;     background-color: white;border-style: solid;
+    border-width: 2px; overflow: auto;" >
+    <div id="afterLeft" style="float:left; ">
+    </div>
+    <div id="after">
+    </div>
+
+
+</div>
 </body>
 </html>

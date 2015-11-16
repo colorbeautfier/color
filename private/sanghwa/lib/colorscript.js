@@ -1,7 +1,6 @@
 /**
  * Created by ddavid on 2015-11-16.
  */
-
 /**
  *
  * 예상 시나리오
@@ -34,12 +33,20 @@ var colorScripting = {
     },
 
     setLanguage : function(languageName, name, language){
-        this.languages[languageName.name = language];
+
+        if(typeof this.languages[languageName] == 'undefined'){
+            this.languages[languageName] = {};
+        }
+
+        this.languages[languageName][name]  = language;
+    },
+
+    getLanguage : function(languageName, name){
+        return this.languages[languageName][name];
     },
 
     languages : {}
-}
-
+};
 
 (function(){
    var javascript_sh =   function(){
@@ -47,16 +54,29 @@ var colorScripting = {
         this.content = "";
         this.changedcontent = "";
 
-        this.sequenceGrammer = [{},{},{},{}];
+        this.sequenceLogic= [{
+           regExp : "",
+            color : "#0000"
+        },{
+
+        },{
+
+        },{
+
+        }];
 
         this.setContent = function(content){
 
         }
         this.execute = function(){
+            while(this.sequenceLogic.length>0){
+                var logic = this.sequenceLogic.shift();
+                var regExp = logic.regExp;
 
+            }
             return this.changedcontent;
         }
     }
-    colorScripting.setLanguage("javascript", "sh", javascript_sh);
+    colorScripting.setLanguage("javascript", "sh", new javascript_sh());
 })();
 

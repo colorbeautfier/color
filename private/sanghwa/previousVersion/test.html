@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+    function change(){
+
+        var innerHtml = document.getElementById("before").value;
+        document.getElementById("after").innerHTML  = parse(innerHtml);
+
+        document.getElementById("highlite").innerHTML = innerHtml;
+
+
+        generatorLineNum();
+    }
+
+    function generatorLineNum(){
+        var str ="";
+        for (var i=0; i<contentHeight; i++){
+            str += '<div style="height:20px; width: 30px;margin-left: 6px; font-size:12px">' + i + '</div>';
+        }
+        document.getElementById("afterLeft").innerHTML  = str;
+
+
+
+    }
+
+    var contentHeight = 0;
+    function parse(innerHtml){
+        // 변환한다 코드 작성
+
+        var foundTwoComment = false;
+        var foundTwoCommentPosition =0;
+        var foundTwoCommentDepth = -1
+
+        // 한줄씩 단위로 끊어서 데이터를 불러온다.
+        var lineContents= innerHtml.split("\n");
+        contentHeight  = lineContents.length;
+        for(var i=0; i<lineContents.length; i++){
+
+            var oneLine = lineContents[i];
+            var chagedLine = "";
+            var isStart  = false;
+            var startStr = null;
+            var startIndex = 0;
+
+
+
+            var checkTwoComment = {isStartLine : false, isEndLine : false};
+
+            var foundOneComment = false;
+            var foundOneCommentPosition =0;
+            for(var j=0; j < oneLine.length; j++){
+
+
+
+                if(!foundTwoComment)   { // 대 주석을 발견하지 않은 경우
+                    if(oneLine[j] =='"' || oneLine[j]=="'"){ // string 값 체크하는 로직
+                        if(isStart == true){
+                            if(startStr != null){
+                                if(startStr != oneLine[j]){
+                                    continue;
+                                }
+                            }
+                        }
+                        isStart = !isStart;
+                        if(isStart){ // 시작
+                            chagedLine += changeColor(replace(oneLine.substring(startIndex, j)));
+                            startIndex = j;
+                            startStr = oneLine[j];
+                        }else{  // 끝
+                            chagedLine+= "<span style='color:#38b040  ;font-size:12px'>"+  replace(oneLine.substring(startIndex, j+1)) + "</span>";
+                            startIndex = j+1;
+                            startStr = null;
+                        }
+                    /**
+                     * 슬러쉬가 두개 연속할때 같은 경우는 그 앞에 까지는 일단 변환시켜주고 그 뒤에는 전부다
+                     */
+                    }else if(oneLine[j] =='/' && j+1 <oneLine.length && oneLine[j+1] =='/' ){  // 슬러쉬가 두개 연속될때
+                        chagedLine += changeColor(replace(oneLine.substring(startIndex, j)));
+
+                        foundOneComment = true;
+                        foundOneCommentPosition = j;
+                        break;
+                    }else if(oneLine[j] =='/' && j+1 <oneLine.length && oneLine[j+1] =='*' ){ // 연속 슬러쉬를 발견
+                        chagedLine += changeColor(replace(oneLine.substring(startIndex, j)));
+
+                        foundTwoComment = true;
+                        foundTwoCommentPosition = j;
+                        foundTwoCommentDepth = i;
+
+                        checkTwoComment.isStartLine = true;
+                        chagedLine +='<span style="color:#C1C7C9 ;font-size:12px">'
+                    }
+                }else{ // 대 주석을 발견한 경우
+                    if(oneLine[j] =='*' && j+1 <oneLine.length && oneLine[j+1] =='/' ) { // 연속 슬러쉬를 발견
+                        foundTwoComment = false;
+                        checkTwoComment.isEndLine = true;
+
+                        if(foundTwoCommentDepth == i){ // 뎁스가 같다면
+                            chagedLine +=  replace(oneLine.substring(foundTwoCommentPosition, j+2)) + '</span>';
+                        }else{
+                            chagedLine +='<span style="color:#C1C7C9;font-size:12px">' +  replace(oneLine.substring(0, oneLine.length)) + '</span>';
+                        }
+                        startIndex = j+2;
+                    }else{// 연속 슬러쉬를 발견하지 않은 경우는 skip
+
+                    }
+                }
+            }
+
+            if(foundOneComment){ // 1단 주석이 있는 경우
+                chagedLine +=  '<span style="color:#C1C7C9;font-size:12px">' +  replace(oneLine.substring(foundOneCommentPosition, oneLine.length)) + '</span>';
+            }else { // 1단 주석을 발견하지 않은 경우 않고 2단 주석도 발견하지 않은 경우
+                if(foundTwoComment) {
+                    if (!checkTwoComment.isStartLine && !checkTwoComment.isEndLine) {
+                        chagedLine += '<span style="color:#C1C7C9;font-size:12px">' + replace(oneLine.substring(startIndex, oneLine.length)) + '</span>';
+                    } else if(checkTwoComment.isStartLine && !checkTwoComment.isEndLine){
+                        chagedLine +=  replace(oneLine.substring(foundTwoCommentPosition, oneLine.length)) ;
+                    }
+                    else{
+                        chagedLine +=  replace(oneLine.substring(startIndex, oneLine.length)) ;
+                    }
+                }else{
+                    chagedLine += changeColor(replace(oneLine.substring(startIndex, oneLine.length)));
+                }
+
+
+            }
+            console.log(chagedLine);
+
+            // 탭치환
+            chagedLine= chagedLine.replace( /\t/g ,'&emsp;&emsp;');
+
+            //chagedLine= chagedLine.replace( / /g ,'&nbsp;');
+
+
+            lineContents[i] =  "<div style='height:20px;;margin-left: 6px;font-size:12px;font-family:  consolas, Courier, monospace, monaco;'>"+chagedLine +"</div>";
+//            lineContents[i] =  chagedLine ;
+
+
+            // function var 변환
+        }
+
+
+        return lineContents.join("");
+    }
+
+        function changeColor(str){
+            var colorMapping = [ ];
+            colorMapping.push({"function" : {"color" : "#ED18ED"}});
+            colorMapping.push({"for" : {"color" : "#ED18ED"}});
+            colorMapping.push({"while" : {"color" : "#ED18ED"}});
+            colorMapping.push({"var" : {"color" : "#ED18ED"}});
+            colorMapping.push({"in" : {"color" : "#ED18ED"}});
+            colorMapping.push({"if" : {"color" : "#ED18ED"}});
+            colorMapping.push({"else" : {"color" : "#ED18ED"}});
+
+
+            colorMapping.push({"return" : {"color" : "#250DFF"}});
+            colorMapping.push({"true" : {"color" : "#250DFF"}});
+            colorMapping.push({"false" : {"color" : "#250DFF"}});
+            colorMapping.push({"null" : {"color" : "#250DFF"}});
+
+            colorMapping.push({"prototype" : {"color" : "#250DFF"}});
+            colorMapping.push({"call" : {"color" : "#250DFF"}});
+            colorMapping.push({"apply" : {"color" : "#250DFF"}});
+            colorMapping.push({"length" : {"color" : "#250DFF"}});
+
+            colorMapping.push({"this" : {"color" : "#FF6F47"}});
+
+            colorMapping.push({"Object" : {"color" : "#34BFED"}});
+            colorMapping.push({"new" : {"color" : "#FA3EA9"}});
+
+            colorMapping.push({"break" : {"color" : "#6DAD0C"}});
+            colorMapping.push({"continue" : {"color" : "#6DAD0C"}});
+
+
+            colorMapping.push({"console" : {"color" : "#C46F0E"}});
+
+            var splits = split(str);
+            var regex = /^[0-9]*$/;
+
+            for(var i=0; i<splits.length; i++){
+                if(regex.test(splits[i])){
+                    console.log(regex.test(splits[i]) +" : " + splits[i]);
+                    splits[i] = "<span style='color:#fc142b;font-size:12px; '>" + splits[i] +"</span>";
+                    continue;
+                }
+
+                for(var j=0 ; j<colorMapping.length ; j++) {
+                    for (var key in colorMapping[j]) {
+                        if (key == splits[i]) {
+                            // 같다면
+                            splits[i]= "<span style='color:"+ colorMapping[j][key].color +";font-size:12px'>" +key +"</span>";
+                        }
+                    }
+                }
+            }
+
+            return splits.join('');
+        }
+
+    function replace (from, to){
+        return from.replace(/</g, '&lt;').replace(/>/, '&gt;').replace(/ /g, '&nbsp;');
+    }
+
+    function split(str){
+
+
+        var divider = /^[0-9a-zA-Z]*$/;
+        var startIndex =0;
+        var result = [];
+        for(var i=0; i<str.length-1; i++){
+            if(!divider.test(str[i])){
+               result.push(replace(str.substring(startIndex, i+1)));
+              startIndex = i+1;
+
+            }else if(!divider.test(str[i+1])){ // 일반 글자나 숫자로 이루어진 데이터
+              result.push(str.substring(startIndex, i+1));
+              startIndex = i+1;
+            }
+        }
+        console.log(result);
+        result.push(replace(str.substring(startIndex, str.length)));
+        return result;
+    }
+
+
+
+</script>
+<button onclick="change()">changeBtn </button>
+<br>
+<div style="width:45%; min-height:300px;">
+    <textarea id="before" style="width:100%; min-height:300px;">
+
+    </textarea>
+</div>
+<br>
+
+<div id="content" style="width:45%; min-height:300px;     background-color: white;border-style: solid;
+    border-width: 2px; overflow: auto;" >
+    <div id="afterLeft" style="float:left; ">
+    </div>
+    <div id="after">
+    </div>
+
+
+</div>
+</html>
