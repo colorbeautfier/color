@@ -24,22 +24,28 @@
             language.setContent(document.getElementById('before').innerHTML);
             language.execute();
 
+
             var message = document.getElementById('before').innerHTML;
 
-
            // message = message.replace(/\n/g, '<br>');
-            message = message.replace(/\/\*[^]*?\*\//g, helpLinkConvert);
+          //  message = message.replace(/\/\/.*/g, helpLinkConvert);
+           //message = message.replace(/\/\*[^]*?\*\//g, helpLinkConvert);// 대주석
+
+            //message = message.replace(/(".*?")|('.*?')/g, helpLinkConvert);
             console.log(message);
 
-        }
 
+            for(var i=0; i<colorScripting.data.convertedObjects.length; i++){
+                console.log(colorScripting.data.convertedObjects[i]);
+            }
+        }
 
         function helpLinkConvert(str, p1, offset, s) {
             console.log("str :" + str );
             console.log("p1 :" + p1 );
             console.log("offset :" + offset );
             console.log("s :" + s );
-            return "<주석"+p1+"\">"+str+"</여기>";
+            return "<여기>"+str+"</여기>";
         }
 
     </script>
