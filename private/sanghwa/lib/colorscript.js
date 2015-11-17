@@ -62,27 +62,28 @@ var colorScripting = {
             regExp : /[0-9]+/g,
             color : "#ff2222"
         },{
-            regExp : /function|for|while|var|in|if|else/g,
+            regExp : /\bfunction|\bfor|\bwhile|\bvar|\bin|\bif|\belse/g,
+            //regExp : /function|for|while|var|in|if|else/g,
             color : "#ED18ED"
         },{
-            regExp : /return|true|null|false/g,
+            regExp : /\breturn|\btrue|\bnull|\bfalse/g,
             color : "#250DFF"
         },{
-            regExp : /prototype|call|apply|length/g,
+            regExp : /\bprototype|\bcall|\bapply|\blength/g,
             color : "#250DFF"
         },{
-            regExp : /this/g,
+            regExp : /\bthis/g,
             color : "#34BFED"
         },{
-            regExp : /new|Object/g,
+            regExp : /\bnew|\bObject/g,
             color : "#34BFED"
         },{
-            regExp : /break|continue/g,
+            regExp : /\bbreak|\bcontinue/g,
             color : "#34BFED"
         }];
    }
 
-    // controller 이거는 사용안함
+    // controller 이거는 parsing 공통 부분
     var controller = function(){
         this.contents = [];
         this.originalContent ="";
