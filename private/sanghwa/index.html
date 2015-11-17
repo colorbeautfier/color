@@ -21,7 +21,7 @@
 
         function change () {
             colorScripting.initLanguage("javascript", "sh");
-            colorScripting.setContent(document.getElementById('before').innerHTML);
+            colorScripting.setContent(document.getElementById('before').value);
             var  changedContent = colorScripting.start();
 
             $('#after').html(changedContent);
@@ -41,6 +41,15 @@
             }
         }
 
+        function copy(){
+
+            //document.getElementById("pre").innerHTML;
+
+
+            window.clipboardData.setData("Text", document.getElementById("allFrame").innerHTML);
+            alert("복사되었습니다.");
+        }
+
         function helpLinkConvert(str, p1, offset, s) {
             console.log("str :" + str );
             console.log("p1 :" + p1 );
@@ -53,7 +62,9 @@
 </head>
 <body>
 <button onclick="change()">changeBtn </button>
+<button onclick="copy()">copyBtn </button>
 <br>
+
 <div style="width:600px; min-height:600px;">
     <textarea id="before" style="width:100%; min-height:600px;">
 
@@ -63,14 +74,16 @@
 
 <div id="content" style="width:45%; min-height:300px;     background-color: white;border-style: solid;
     border-width: 2px; overflow: auto;" >
-
     <div id="afterLeft" style="float:left; ">
     </div>
+<div id="allFrame">
 
-<pre>
-    <div id="after">
+
+<pre id="pre">
+    <div id="after" style="color:#000000">
     </div>
 </pre>
+</div>
 
 
 </div>

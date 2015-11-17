@@ -58,10 +58,9 @@ var colorScripting = {
         },{
             regExp : /".*?"|'.*?'/g, // string
             color : "#f00000"
-
         },{
             regExp : /[0-9]+/g,
-            color : "#fc142b"
+            color : "#ff2222"
         },{
             regExp : /function|for|while|var|in|if|else/g,
             color : "#ED18ED"
@@ -143,25 +142,29 @@ var colorScripting = {
                     }
                     if(i ==0 ){
                         if(objs[i].startIndex ==0){  // 시작일때
-                            convertedContent += this.originalContent.substring(startIndex , objs[i].endIndex);
+                            convertedContent += this.escapeString(this.originalContent.substring(startIndex , objs[i].endIndex));
                         }else{
-                            convertedContent += this.originalContent.substring(0, objs[i].startIndex);
+                            convertedContent += this.escapeString(this.originalContent.substring(0, objs[i].startIndex));
                             convertedContent += objs[i].str;
                         }
                     }else{
-                        convertedContent += this.originalContent.substring(startIndex , objs[i].startIndex);
+                        convertedContent += this.escapeString(this.originalContent.substring(startIndex , objs[i].startIndex));
                         convertedContent += objs[i].str;
                     }
                     startIndex = objs[i].endIndex;
 
                     if(i==objs.length-1){
-                        convertedContent += this.originalContent.substring(objs[i].endIndex , this.originalContent.length);
+                        convertedContent += this.escapeString(this.originalContent.substring(objs[i].endIndex , this.originalContent.length));
                     }
 
                 }
                 return convertedContent;
 
             }
+
+        this.escapeString = function(value){
+            return value.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;');
+        }
 
         this.getContents = function(objs){
             var contents = [];
@@ -196,7 +199,7 @@ var colorScripting = {
             var obj = {
                 startIndex : p1 +  colorScripting.data.startIndex,
                 endIndex : p1+ str.length +  colorScripting.data.startIndex,
-                str :'<span style="color: '+ colorScripting.data.currentLogic.color +'">'+str + '</span>'
+                str :'<span style="color: '+ colorScripting.data.currentLogic.color +'">'+str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;') + '</span>'
             }
             colorScripting.data.convertedObjects.push(obj);
             return str;
