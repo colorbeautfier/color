@@ -51,17 +51,35 @@ var colorScripting = {
 
         this.sequenceLogic= [{
            regExp : /\/\*[^]*?\*\//g, // 대주석
-           color : "#ff00ff"
+           color : "#C1C7C9"
         },{
             regExp : /\/\/.*/g, // 일반주석
-            color : "#ffff00"
+            color : "#C1C7C9"
         },{
             regExp : /".*?"|'.*?'/g, // string
             color : "#f00000"
 
         },{
-            regExp : /[0-9a-zA-Z]+/g, // 숫자나 글자인 부분
-            color : "#555000"
+            regExp : /[0-9]+/g,
+            color : "#fc142b"
+        },{
+            regExp : /function|for|while|var|in|if|else/g,
+            color : "#ED18ED"
+        },{
+            regExp : /return|true|null|false/g,
+            color : "#250DFF"
+        },{
+            regExp : /prototype|call|apply|length/g,
+            color : "#250DFF"
+        },{
+            regExp : /this/g,
+            color : "#34BFED"
+        },{
+            regExp : /new|Object/g,
+            color : "#34BFED"
+        },{
+            regExp : /break|continue/g,
+            color : "#34BFED"
         }];
    }
 
