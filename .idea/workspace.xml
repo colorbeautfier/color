@@ -63,7 +63,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/collaboration/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="171" max-vertical-offset="285">
+            <state vertical-scroll-proportion="-6.107143" vertical-offset="0" max-vertical-offset="285">
               <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
               <folding />
             </state>
@@ -73,8 +73,8 @@
       <file leaf-file-name="colorscript.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/private/sanghwa/lib/colorscript.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="6.7834177" vertical-offset="0" max-vertical-offset="4123">
-              <caret line="211" column="5" selection-start-line="211" selection-start-column="5" selection-end-line="211" selection-end-column="5" />
+            <state vertical-scroll-proportion="-3.7614212" vertical-offset="2432" max-vertical-offset="4275">
+              <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -85,8 +85,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="133">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.76" vertical-offset="0" max-vertical-offset="133">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -95,7 +95,7 @@
       <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/private/sanghwa/previousVersion/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3484" max-vertical-offset="4807">
+            <state vertical-scroll-proportion="-11.285714" vertical-offset="3484" max-vertical-offset="4807">
               <caret line="200" column="9" selection-start-line="200" selection-start-column="9" selection-end-line="200" selection-end-column="9" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#html#0;n#!!top" expanded="true" />
@@ -583,22 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/collaboration/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="171" max-vertical-offset="285">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="896">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/private/sanghwa/testjs">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="304" max-vertical-offset="912">
@@ -612,24 +596,6 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="931">
           <caret line="36" column="59" selection-start-line="36" selection-start-column="59" selection-end-line="36" selection-end-column="59" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/private/sanghwa/previousVersion/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3484" max-vertical-offset="4807">
-          <caret line="200" column="9" selection-start-line="200" selection-start-column="9" selection-end-line="200" selection-end-column="9" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1447634504192" expanded="true" signature="430:487" placeholder="..." />
-            <marker date="1447634504192" expanded="true" signature="2166:2196" placeholder="..." />
-            <marker date="1447634504192" expanded="true" signature="3300:3329" placeholder="..." />
-            <marker date="1447634504192" expanded="true" signature="3870:3898" placeholder="..." />
-            <marker date="1447634504192" expanded="true" signature="4236:4264" placeholder="..." />
-            <marker date="1447634504192" expanded="true" signature="4590:4618" placeholder="..." />
-            <marker date="1447634504192" expanded="true" signature="5452:5548" placeholder="..." />
-            <marker date="1447634504192" expanded="true" signature="7460:7490" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -647,10 +613,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/collaboration/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.107143" vertical-offset="0" max-vertical-offset="285">
+          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/sanghwa/previousVersion/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.285714" vertical-offset="3484" max-vertical-offset="4807">
+          <caret line="200" column="9" selection-start-line="200" selection-start-column="9" selection-end-line="200" selection-end-column="9" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1447634504192" expanded="true" signature="430:487" placeholder="..." />
+            <marker date="1447634504192" expanded="true" signature="2166:2196" placeholder="..." />
+            <marker date="1447634504192" expanded="true" signature="3300:3329" placeholder="..." />
+            <marker date="1447634504192" expanded="true" signature="3870:3898" placeholder="..." />
+            <marker date="1447634504192" expanded="true" signature="4236:4264" placeholder="..." />
+            <marker date="1447634504192" expanded="true" signature="4590:4618" placeholder="..." />
+            <marker date="1447634504192" expanded="true" signature="5452:5548" placeholder="..." />
+            <marker date="1447634504192" expanded="true" signature="7460:7490" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.76" vertical-offset="0" max-vertical-offset="133">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/private/sanghwa/lib/colorscript.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.7834177" vertical-offset="0" max-vertical-offset="4123">
-          <caret line="211" column="5" selection-start-line="211" selection-start-column="5" selection-end-line="211" selection-end-column="5" />
+        <state vertical-scroll-proportion="-3.7614212" vertical-offset="2432" max-vertical-offset="4275">
+          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

@@ -7,113 +7,115 @@
  * @type {{data: {}, init: Function, setLanguage: Function}}
  */
 var colorScripting = {
-    data : { convertedObjects : [],
-        currentLogic : {},
-    startIndex :0},
+    data: {
+        convertedObjects: [],
+        currentLogic: {},
+        startIndex: 0
+    },
 
-    init : function(name){
+    init: function (name) {
 
     },
 
-    start : function(){
+    start: function () {
         return this.controller.execute();
     },
 
-    setContent : function(content){
+    setContent: function (content) {
         this.controller.setContent(content);
     },
 
-    initLanguage : function(languageName, name){
+    initLanguage: function (languageName, name) {
         this.controller.sequenceLogic = this.languages[languageName][name].sequenceLogic;
     },
 
-    setLanguage : function(languageName, name, language){
+    setLanguage: function (languageName, name, language) {
 
-        if(typeof this.languages[languageName] == 'undefined'){
+        if (typeof this.languages[languageName] == 'undefined') {
             this.languages[languageName] = {};
         }
 
-        this.languages[languageName][name]  = language;
+        this.languages[languageName][name] = language;
     },
 
-    languages : {},
+    languages: {},
 
-    controller : null
+    controller: null
 };
 
-(function(){
+(function () {
     /**
      * 언어 셋팅
      */
 
-        // javascript
-   var javascript_sh =   function(){
+    // javascript
+    var javascript_sh = function () {
 
-        this.sequenceLogic= [{
-           regExp : /\/\*[^]*?\*\//g, // 대주석
-           color : "#C1C7C9"
-        },{
-            regExp : /\/\/.*/g, // 일반주석
-            color : "#C1C7C9"
-        },{
-            regExp : /".*?"|'.*?'/g, // string
-            color : "#f00000"
-        },{
-            regExp : /[0-9]+/g,
-            color : "#ff2222"
-        },{
-            regExp : /\bfunction|\bfor|\bwhile|\bvar|\bin|\bif|\belse/g,
+        this.sequenceLogic = [{
+            regExp: /\/\*[^]*?\*\//g, // 대주석
+            color: "#C1C7C9"
+        }, {
+            regExp: /\/\/.*/g, // 일반주석
+            color: "#C1C7C9"
+        }, {
+            regExp: /".*?"|'.*?'/g, // string
+            color: "#f00000"
+        }, {
+            regExp: /[0-9]+/g,
+            color: "#ff2222"
+        }, {
+            regExp: /\bfunction|\bfor|\bwhile|\bvar|\bin|\bif|\belse/g,
             //regExp : /function|for|while|var|in|if|else/g,
-            color : "#ED18ED"
-        },{
-            regExp : /\breturn|\btrue|\bnull|\bfalse/g,
-            color : "#250DFF"
-        },{
-            regExp : /\bprototype|\bcall|\bapply|\blength/g,
-            color : "#250DFF"
-        },{
-            regExp : /\bthis/g,
-            color : "#34BFED"
-        },{
-            regExp : /\bnew|\bObject/g,
-            color : "#34BFED"
-        },{
-            regExp : /\bbreak|\bcontinue/g,
-            color : "#34BFED"
+            color: "#ED18ED"
+        }, {
+            regExp: /\breturn|\btrue|\bnull|\bfalse/g,
+            color: "#250DFF"
+        }, {
+            regExp: /\bprototype|\bcall|\bapply|\blength/g,
+            color: "#250DFF"
+        }, {
+            regExp: /\bthis/g,
+            color: "#34BFED"
+        }, {
+            regExp: /\bnew|\bObject/g,
+            color: "#34BFED"
+        }, {
+            regExp: /\bbreak|\bcontinue/g,
+            color: "#34BFED"
         }];
-   }
+    }
 
     // controller 이거는 parsing 공통 부분
-    var controller = function(){
+    var controller = function () {
         this.contents = [];
-        this.originalContent ="";
+        this.originalContent = "";
         this.changedcontent = "";
 
-        this.sequenceLogic="";
+        this.sequenceLogic = "";
 
         this.currentLogic = {};
 
 
-        this.setContent = function(content){
-            this.contents = [{startIndex : 0, content: content}];
+        this.setContent = function (content) {
+            this.contents = [{startIndex: 0, content: content}];
             this.originalContent = content;
         },
 
-            this.execute = function(){
+            this.execute = function () {
                 // 초기화
                 colorScripting.data.convertedObjects = [];
-                colorScripting.data.startIndex =0;
+                colorScripting.data.startIndex = 0;
                 var todoContent = this.contents;
 
                 console.log(this.sequenceLogic);
                 console.log(this.sequenceLogic.length);
-                for(var i=0; i<this.sequenceLogic.length; i++){
+                for (var i = 0; i < this.sequenceLogic.length; i++) {
                     this.currentLogic = this.sequenceLogic[i];
                     colorScripting.data.currentLogic = this.currentLogic;
 
                     var len = todoContent.length;
-                    for(var j=0; j<len ;j++){
-                        colorScripting.data.startIndex =todoContent[j].startIndex;
+                    for (var j = 0; j < len; j++) {
+                        colorScripting.data.startIndex = todoContent[j].startIndex;
                         var changedContent = todoContent[j].content.replace(this.currentLogic.regExp, this.parsingCallback);
                     }
                     // compare 링
@@ -123,7 +125,7 @@ var colorScripting = {
                     var objs = colorScripting.data.convertedObjects;
                     todoContent = this.getContents(objs);
 
-                    console.log(todoContent );
+                    console.log(todoContent);
                 }
 
                 this.changedcontent = this.convertedContent();
@@ -132,30 +134,30 @@ var colorScripting = {
                 return this.changedcontent;
             },
 
-            this.convertedContent =function(){
+            this.convertedContent = function () {
                 var objs = colorScripting.data.convertedObjects;
-                var startIndex =0;
+                var startIndex = 0;
                 var convertedContent = "";
 
-                for(var i=0; i<objs.length; i++){
-                    if(typeof objs[i].startIndex =='undefined'){
+                for (var i = 0; i < objs.length; i++) {
+                    if (typeof objs[i].startIndex == 'undefined') {
                         continue;
                     }
-                    if(i ==0 ){
-                        if(objs[i].startIndex ==0){  // 시작일때
-                            convertedContent += this.escapeString(this.originalContent.substring(startIndex , objs[i].endIndex));
-                        }else{
+                    if (i == 0) {
+                        if (objs[i].startIndex == 0) {  // 시작일때
+                            convertedContent += this.escapeString(this.originalContent.substring(startIndex, objs[i].endIndex));
+                        } else {
                             convertedContent += this.escapeString(this.originalContent.substring(0, objs[i].startIndex));
                             convertedContent += objs[i].str;
                         }
-                    }else{
-                        convertedContent += this.escapeString(this.originalContent.substring(startIndex , objs[i].startIndex));
+                    } else {
+                        convertedContent += this.escapeString(this.originalContent.substring(startIndex, objs[i].startIndex));
                         convertedContent += objs[i].str;
                     }
                     startIndex = objs[i].endIndex;
 
-                    if(i==objs.length-1){
-                        convertedContent += this.escapeString(this.originalContent.substring(objs[i].endIndex , this.originalContent.length));
+                    if (i == objs.length - 1) {
+                        convertedContent += this.escapeString(this.originalContent.substring(objs[i].endIndex, this.originalContent.length));
                     }
 
                 }
@@ -163,32 +165,38 @@ var colorScripting = {
 
             }
 
-        this.escapeString = function(value){
+        this.escapeString = function (value) {
             return value.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;');
         }
 
-        this.getContents = function(objs){
+        this.getContents = function (objs) {
             var contents = [];
-            var startIndex =0;
-            var endIndex =0;
-            for(var i=0; i<objs.length; i++){
-                if(typeof objs[i].startIndex =='undefined'){
+            var startIndex = 0;
+            var endIndex = 0;
+            for (var i = 0; i < objs.length; i++) {
+                if (typeof objs[i].startIndex == 'undefined') {
                     continue;
                 }
-                if(i ==0 && objs[i].startIndex ==0){
+                if (i == 0 && objs[i].startIndex == 0) {
                     startIndex = objs[i].endIndex;
-                }else if(i==objs.length-1){
-                    contents.push ( {startIndex :  objs[i].endIndex, 'content' : this.originalContent.substring(objs[i].endIndex, this.originalContent.length)});
+                } else if (i == objs.length - 1) {
+                    contents.push({
+                        startIndex: objs[i].endIndex,
+                        'content': this.originalContent.substring(objs[i].endIndex, this.originalContent.length)
+                    });
                 }
-                else{
-                    contents.push ( {startIndex : startIndex, 'content' : this.originalContent.substring(startIndex, objs[i].startIndex)});
+                else {
+                    contents.push({
+                        startIndex: startIndex,
+                        'content': this.originalContent.substring(startIndex, objs[i].startIndex)
+                    });
                     startIndex = objs[i].endIndex;
                 }
             }
             return contents;
         }
 
-        this.compare = function (a,b) {
+        this.compare = function (a, b) {
             if (a.startIndex < b.startIndex)
                 return -1;
             if (a.startIndex > b.startIndex)
@@ -196,11 +204,11 @@ var colorScripting = {
             return 0;
         }
 
-        this.parsingCallback = function (str, p1, p2, p3, p4,  offset, s){
+        this.parsingCallback = function (str, p1, p2, p3, p4, offset, s) {
             var obj = {
-                startIndex : p1 +  colorScripting.data.startIndex,
-                endIndex : p1+ str.length +  colorScripting.data.startIndex,
-                str :'<span style="color: '+ colorScripting.data.currentLogic.color +'">'+str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;') + '</span>'
+                startIndex: p1 + colorScripting.data.startIndex,
+                endIndex: p1 + str.length + colorScripting.data.startIndex,
+                str: '<span style="color: ' + colorScripting.data.currentLogic.color + '">' + str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;') + '</span>'
             }
             colorScripting.data.convertedObjects.push(obj);
             return str;
@@ -208,5 +216,5 @@ var colorScripting = {
     }
 
     colorScripting.setLanguage("javascript", "sh", new javascript_sh());
-    colorScripting.controller =new controller();
+    colorScripting.controller = new controller();
 })();
