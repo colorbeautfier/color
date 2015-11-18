@@ -56,7 +56,8 @@ var colorScripting = {
         this.languages[languageName][name] = language;
     },
     languages: {},
-    parser: null
+    parser: null,
+    util : null
 };
 
 (function () {
@@ -110,8 +111,26 @@ var colorScripting = {
 
                 this.changedcontent = this.convertedContent();
                 console.log(this.changedcontent);
+
+                //
+
+                this.changedcontent= this.changedcontent.replace(/.*\n/g, this.callbackNewline);
+                this.changedcontent= this.changedcontent.replace(/>.+?\s?[a-zA-Z0-9(){}]/g, this.callbackLineFirstWhitespace);
+
                 return this.changedcontent;
             },
+
+            this.callbackNewline = function (str, a,b,c ){
+                console.log(str);
+                if(str.trim() ==''){
+                    str ="<span ></span>"
+                }
+                return "<div style='height:20px;white-space: nowrap;'>" + str +"</div>"
+            };
+
+        this.callbackLineFirstWhitespace = function (str, a,b,c ){
+            return str.replace(/\s/g, '&nbsp;');
+        };
 
         /**
          * make one string with converted array
@@ -268,6 +287,64 @@ var colorScripting = {
         }];
     }
 
+    var util = function () {
+        this.clickcopy =  function (id) {
+            var testDiv = document.getElementById(id);
+            this.execCommandOnElement(testDiv, "selectAll");
+            this.execCommandOnElement(testDiv, "Copy");
+            this.execCommandOnElement(testDiv, "Unselect");
+            alert("copied ");
+        }
+
+        this.execCommandOnElement=  function (el, commandName, value) {
+            if (typeof value == "undefined") {
+                value = null;
+            }
+
+            if (typeof window.getSelection != "undefined") {
+                // Non-IE case
+                var sel = window.getSelection();
+
+                // Save the current selection
+                var savedRanges = [];
+                for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                    savedRanges[i] = sel.getRangeAt(i).cloneRange();
+                }
+
+                // Temporarily enable designMode so that
+                // document.execCommand() will work
+                document.designMode = "on";
+
+                // Select the element's content
+                sel = window.getSelection();
+                var range = document.createRange();
+                range.selectNodeContents(el);
+                sel.removeAllRanges();
+                sel.addRange(range);
+
+                // Execute the command
+                document.execCommand(commandName, false, value);
+
+                // Disable designMode
+                document.designMode = "off";
+
+                // Restore the previous selection
+                sel = window.getSelection();
+                sel.removeAllRanges();
+                for (var i = 0, len = savedRanges.length; i < len; ++i) {
+                    sel.addRange(savedRanges[i]);
+                }
+            } else if (typeof document.body.createTextRange != "undefined") {
+                // IE case
+                var textRange = document.body.createTextRange();
+                textRange.moveToElementText(el);
+                textRange.execCommand(commandName, false, value);
+            }
+        }
+    }
+
+
     colorScripting.setLanguage("javascript", "sh", new javascript_sh());
     colorScripting.parser = new parser();
+    colorScripting.util = new util();
 })();

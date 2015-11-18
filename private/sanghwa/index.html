@@ -18,7 +18,7 @@
                     //alert( "Data Saved: " + msg );
                     $('#before').html(msg);
                 });
-        function callback(str, a,b,c ){
+        function callbackNewline(str, a,b,c ){
             console.log(str);
             if(str.trim() ==''){
                 str ="<span ></span>"
@@ -26,7 +26,7 @@
             return "<div style='height:20px;white-space: nowrap;'>" + str +"</div>"
             }
 
-        function callback2(str, a,b,c ){
+        function callbackLineFirstWhitespace(str, a,b,c ){
             return str.replace(/\s/g, '&nbsp;');
         }
         function change () {
@@ -34,8 +34,8 @@
             colorScripting.setContent(document.getElementById('before').value);
             var  changedContent = colorScripting.start();
 
-            changedContent= changedContent.replace(/.*\n/g, callback);
-            changedContent= changedContent.replace(/>.+?\s?[a-zA-Z0-9(){}]/g, callback2);
+           // changedContent= changedContent.replace(/.*\n/g, callbackNewline);
+            //changedContent= changedContent.replace(/>.+?\s?[a-zA-Z0-9(){}]/g, callbackLineFirstWhitespace);
 
             $('#test').html(changedContent);
 
@@ -52,21 +52,6 @@
             for(var i=0; i<colorScripting.data.convertedObjects.length; i++){
                 console.log(colorScripting.data.convertedObjects[i]);
             }
-        }
-
-        function copy(){
-            document.execCommand('selectAll',false,null);
-            document.execCommand('Copy',false,null);
-            document.execCommand("Unselect", false, null);
-            alert("복사되었습니다.");
-        }
-
-        function clickcopy() {
-            var testDiv = document.getElementById("after");
-            execCommandOnElement(testDiv, "selectAll");
-            execCommandOnElement(testDiv, "Copy");
-            execCommandOnElement(testDiv, "Unselect");
-            alert("복사되었습니다.");
         }
 
         function helpLinkConvert(str, p1, offset, s) {
@@ -91,57 +76,13 @@
             }
         }
 
-        function execCommandOnElement(el, commandName, value) {
-            if (typeof value == "undefined") {
-                value = null;
-            }
 
-            if (typeof window.getSelection != "undefined") {
-                // Non-IE case
-                var sel = window.getSelection();
-
-                // Save the current selection
-                var savedRanges = [];
-                for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-                    savedRanges[i] = sel.getRangeAt(i).cloneRange();
-                }
-
-                // Temporarily enable designMode so that
-                // document.execCommand() will work
-                document.designMode = "on";
-
-                // Select the element's content
-                sel = window.getSelection();
-                var range = document.createRange();
-                range.selectNodeContents(el);
-                sel.removeAllRanges();
-                sel.addRange(range);
-
-                // Execute the command
-                document.execCommand(commandName, false, value);
-
-                // Disable designMode
-                document.designMode = "off";
-
-                // Restore the previous selection
-                sel = window.getSelection();
-                sel.removeAllRanges();
-                for (var i = 0, len = savedRanges.length; i < len; ++i) {
-                    sel.addRange(savedRanges[i]);
-                }
-            } else if (typeof document.body.createTextRange != "undefined") {
-                // IE case
-                var textRange = document.body.createTextRange();
-                textRange.moveToElementText(el);
-                textRange.execCommand(commandName, false, value);
-            }
-        }
 
     </script>
 </head>
 <body>
 <button onclick="change()">changeBtn </button>
-<button onclick="clickcopy()">copyBtn </button>
+<button onclick="colorScripting.util.clickcopy('after')">copyBtn </button>
 <button onclick="changeUiColor()">changeUiColor</button>
 <br>
 
@@ -155,13 +96,13 @@
 <div id="content" style="min-height:300px; " >
     <div id="afterLeft" style="float:left; ">
     </div>
-<div id="allFrame" contenteditable="true" onclick="clickcopy();//document.execCommand('selectAll',false,null)">
+<div id="allFrame" contenteditable="true" onclick="colorScripting.util.clickcopy();//document.execCommand('selectAll',false,null)">
 
 
 
 
 <div id="after">
-    <div id="test" style='overflow-x: auto;background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);' ></div>
+    <div id="test" style='overflow-x: auto;     overflow-y: hidden; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);'></div>
 </div>
 
 

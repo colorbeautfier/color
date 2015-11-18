@@ -24,18 +24,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/private/sanghwa/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.2763915" vertical-offset="1216" max-vertical-offset="3382">
-              <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
+            <state vertical-scroll-proportion="-6.7017546" vertical-offset="1423" max-vertical-offset="2261">
+              <caret line="95" column="46" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#textarea#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1447836351749" expanded="true" signature="719:751" placeholder="..." />
+                <marker date="1447837581167" expanded="true" signature="726:758" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -71,13 +71,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="colorscript.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="colorscript.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/private/sanghwa/lib/colorscript.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.172414" vertical-offset="3952" max-vertical-offset="5282">
-              <caret line="222" column="33" selection-start-line="222" selection-start-column="21" selection-end-line="222" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.30783242" vertical-offset="5436" max-vertical-offset="6745">
+              <caret line="295" column="25" selection-start-line="295" selection-start-column="25" selection-end-line="295" selection-end-column="25" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1447837764001" expanded="true" signature="3821:3853" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -137,8 +138,8 @@
         <option value="$PROJECT_DIR$/private/sanghwa/lib/test" />
         <option value="$PROJECT_DIR$/private/sanghwa/testjs" />
         <option value="$PROJECT_DIR$/private/sanghwa/previousVersion/test.html" />
-        <option value="$PROJECT_DIR$/private/sanghwa/lib/colorscript.js" />
         <option value="$PROJECT_DIR$/private/sanghwa/index.html" />
+        <option value="$PROJECT_DIR$/private/sanghwa/lib/colorscript.js" />
       </list>
     </option>
   </component>
@@ -285,7 +286,7 @@
       <recent name="D:\node\color\private\sanghwa\previousVersion" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.test.html">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration default="false" name="copytest.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/color/private/sanghwa/copytest.html">
       <RunnerSettings RunnerId="JavascriptDebugRunner" />
       <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
@@ -419,7 +420,7 @@
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1447836351749" expanded="true" signature="719:751" placeholder="..." />
+            <marker date="1447837581167" expanded="true" signature="726:758" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -454,6 +455,7 @@
           <caret line="197" column="53" selection-start-line="197" selection-start-column="53" selection-end-line="197" selection-end-column="53" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1447837764001" expanded="true" signature="3821:3853" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -502,7 +504,7 @@
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1447836351749" expanded="true" signature="719:751" placeholder="..." />
+            <marker date="1447837581167" expanded="true" signature="726:758" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -537,6 +539,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1447837764001" expanded="true" signature="3821:3853" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -577,7 +580,7 @@
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1447836351749" expanded="true" signature="719:751" placeholder="..." />
+            <marker date="1447837581167" expanded="true" signature="726:758" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -612,6 +615,7 @@
           <caret line="158" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="210" selection-end-column="5" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1447837764001" expanded="true" signature="3821:3853" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -652,7 +656,7 @@
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1447836351749" expanded="true" signature="719:751" placeholder="..." />
+            <marker date="1447837581167" expanded="true" signature="726:758" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -679,6 +683,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1447837764001" expanded="true" signature="3821:3853" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -719,7 +724,7 @@
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1447836351749" expanded="true" signature="719:751" placeholder="..." />
+            <marker date="1447837581167" expanded="true" signature="726:758" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -746,6 +751,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1447837764001" expanded="true" signature="3821:3853" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -834,27 +840,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/private/sanghwa/lib/colorscript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.172414" vertical-offset="3952" max-vertical-offset="5282">
-          <caret line="222" column="33" selection-start-line="222" selection-start-column="21" selection-end-line="222" selection-end-column="33" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/private/sanghwa/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.2763915" vertical-offset="1216" max-vertical-offset="3382">
-          <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
+        <state vertical-scroll-proportion="-6.7017546" vertical-offset="1423" max-vertical-offset="2261">
+          <caret line="95" column="46" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#textarea#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1447836351749" expanded="true" signature="719:751" placeholder="..." />
+            <marker date="1447837581167" expanded="true" signature="726:758" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/private/sanghwa/lib/colorscript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30783242" vertical-offset="5436" max-vertical-offset="6745">
+          <caret line="295" column="25" selection-start-line="295" selection-start-column="25" selection-end-line="295" selection-end-column="25" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1447837764001" expanded="true" signature="3821:3853" placeholder="..." />
           </folding>
         </state>
       </provider>
