@@ -86,17 +86,17 @@ var colorScripting = {
             regExp : /\b(window|Object|document)\b/g,
             color: "#34BFED"
         },{
-            regExp : /\b(Infinity|NaN|undefined|null|eval|uneval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|unescape)\b/g,  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+            regExp : /\b(Infinity|NaN|undefined|null|eval|uneval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|unescape)\b/g,
             color: "#34BFED",
-            explain : "built in "
+            explain : "built in "// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
         },{
-            regExp : /\b(Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|Math|String|RegExp)\b/g,  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+            regExp : /\b(Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|Math|String|RegExp)\b/g,
             color: "#34BFED",
-            explain : "built in 2"
+            explain : "built in 2"// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
         },{
-            regExp : /\b(ArrayBuffer|DataView|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Uint32Array|Float32Array|Float64Array)\b/g,  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+            regExp : /\b(ArrayBuffer|DataView|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Uint32Array|Float32Array|Float64Array)\b/g,
             color: "#34BFED",
-            explain : "built in 3"
+            explain : "built in 3"// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
         }];
     }
 
