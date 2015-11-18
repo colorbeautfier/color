@@ -18,13 +18,26 @@
                     //alert( "Data Saved: " + msg );
                     $('#before').html(msg);
                 });
+        function callback(str, a,b,c ){
+            console.log(str);
+            if(str.trim() ==''){
+                str ="<span ></span>"
+            }
+            return "<div style='height:20px;white-space: nowrap;'>" + str +"</div>"
+            }
 
+        function callback2(str, a,b,c ){
+            return str.replace(/\s/g, '&nbsp;');
+        }
         function change () {
             colorScripting.initLanguage("javascript", "sh");
             colorScripting.setContent(document.getElementById('before').value);
             var  changedContent = colorScripting.start();
 
-            $('#after').html(changedContent);
+            changedContent= changedContent.replace(/.*\n/g, callback);
+            changedContent= changedContent.replace(/>.+?\s?[a-zA-Z0-9(){}]/g, callback2);
+
+            $('#test').html(changedContent);
 
             var message = document.getElementById('before').innerHTML;
 
@@ -49,7 +62,7 @@
         }
 
         function clickcopy() {
-            var testDiv = document.getElementById("allFrame");
+            var testDiv = document.getElementById("after");
             execCommandOnElement(testDiv, "selectAll");
             execCommandOnElement(testDiv, "Copy");
             execCommandOnElement(testDiv, "Unselect");
@@ -62,6 +75,20 @@
             console.log("offset :" + offset );
             console.log("s :" + s );
             return "<여기>"+str+"</여기>";
+        }
+
+        var currentTemplate = 0;
+
+        function changeUiColor(){
+            if(currentTemplate == 0){
+                currentTemplate = 1;
+                document.getElementById('after').style.backgroundColor ='#000000';
+                document.getElementById('after').style.color ='#ffffff';
+            }else{
+                currentTemplate = 0;
+                document.getElementById('after').style.backgroundColor ='#ffffff';
+                document.getElementById('after').style.color ='#000000';
+            }
         }
 
         function execCommandOnElement(el, commandName, value) {
@@ -115,6 +142,7 @@
 <body>
 <button onclick="change()">changeBtn </button>
 <button onclick="clickcopy()">copyBtn </button>
+<button onclick="changeUiColor()">changeUiColor</button>
 <br>
 
 <div style="width:600px; min-height:600px;">
@@ -124,17 +152,19 @@
 </div>
 <br>
 
-<div id="content" style="width:45%; min-height:300px;     background-color: white;border-style: solid;
-    border-width: 2px; overflow: auto;" >
+<div id="content" style="min-height:300px; " >
     <div id="afterLeft" style="float:left; ">
     </div>
-<div id="allFrame" contenteditable="true" onclick="copy();//document.execCommand('selectAll',false,null)">
+<div id="allFrame" contenteditable="true" onclick="clickcopy();//document.execCommand('selectAll',false,null)">
 
 
-<pre id="pre">
-    <div id="after" style="color:#000000">
-    </div>
-</pre>
+
+
+<div id="after">
+    <div id="test" style='overflow-x: auto;background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);' ></div>
+</div>
+
+
 </div>
 
 

@@ -151,7 +151,7 @@ var colorScripting = {
          * @returns {string}
          */
         this.escapeString = function (value) {
-            return value.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;');
+            return value.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;').replace(/[\s][^\n]]/g ,'&nbsp;');
         }
 
         this.getContents = function (objs) {
@@ -230,7 +230,7 @@ var colorScripting = {
             color: "#f00000"
         }, {
             regExp: /[0-9]+/g,
-            color: "#ff2222"
+            color: "#3EC9F7"
         }, {
             regExp: /\b(function|for|while|var|in|if|else)\b/g,
             //regExp : /function|for|while|var|in|if|else/g,
