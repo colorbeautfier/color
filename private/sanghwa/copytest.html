@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Copy to clipboard</title>
+    <script>
+        function copytoclipboard()
+        {
+
+            this.document.execCommand("SelectAll", true);
+            this.document.execCommand("Copy", true);
+            this.document.execCommand("UnSelect", true);
+        }
+        function SetToBold () {
+            document.execCommand ('bold', true, null);
+        }
+    </script>
+</head>
+<body>
+<table id="ddd">
+    <tr>
+        <td>blah1</td>
+        <td>blah2 blah2</td>
+        <td>blah3 blah3 blah3</td>
+    </tr>
+</table>
+<textarea id="dd">
+    dfadfasdf
+</textarea>
+<a href="#" onclick="copytoclipboard();">Click Me</a>
+
+</table>
+<div contenteditable="true" onclick="document.execCommand('selectAll',false,null)">Select a part of this text!</div>
+</body>
+</html>

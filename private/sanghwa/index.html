@@ -42,11 +42,17 @@
         }
 
         function copy(){
+            document.execCommand('selectAll',false,null);
+            document.execCommand('Copy',false,null);
+            document.execCommand("Unselect", false, null);
+            alert("복사되었습니다.");
+        }
 
-            //document.getElementById("pre").innerHTML;
-
-
-            window.clipboardData.setData("Text", document.getElementById("allFrame").innerHTML);
+        function clickcopy() {
+            var testDiv = document.getElementById("allFrame");
+            execCommandOnElement(testDiv, "selectAll");
+            execCommandOnElement(testDiv, "Copy");
+            execCommandOnElement(testDiv, "Unselect");
             alert("복사되었습니다.");
         }
 
@@ -58,11 +64,57 @@
             return "<여기>"+str+"</여기>";
         }
 
+        function execCommandOnElement(el, commandName, value) {
+            if (typeof value == "undefined") {
+                value = null;
+            }
+
+            if (typeof window.getSelection != "undefined") {
+                // Non-IE case
+                var sel = window.getSelection();
+
+                // Save the current selection
+                var savedRanges = [];
+                for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+                    savedRanges[i] = sel.getRangeAt(i).cloneRange();
+                }
+
+                // Temporarily enable designMode so that
+                // document.execCommand() will work
+                document.designMode = "on";
+
+                // Select the element's content
+                sel = window.getSelection();
+                var range = document.createRange();
+                range.selectNodeContents(el);
+                sel.removeAllRanges();
+                sel.addRange(range);
+
+                // Execute the command
+                document.execCommand(commandName, false, value);
+
+                // Disable designMode
+                document.designMode = "off";
+
+                // Restore the previous selection
+                sel = window.getSelection();
+                sel.removeAllRanges();
+                for (var i = 0, len = savedRanges.length; i < len; ++i) {
+                    sel.addRange(savedRanges[i]);
+                }
+            } else if (typeof document.body.createTextRange != "undefined") {
+                // IE case
+                var textRange = document.body.createTextRange();
+                textRange.moveToElementText(el);
+                textRange.execCommand(commandName, false, value);
+            }
+        }
+
     </script>
 </head>
 <body>
 <button onclick="change()">changeBtn </button>
-<button onclick="copy()">copyBtn </button>
+<button onclick="clickcopy()">copyBtn </button>
 <br>
 
 <div style="width:600px; min-height:600px;">
@@ -76,7 +128,7 @@
     border-width: 2px; overflow: auto;" >
     <div id="afterLeft" style="float:left; ">
     </div>
-<div id="allFrame">
+<div id="allFrame" contenteditable="true" onclick="copy();//document.execCommand('selectAll',false,null)">
 
 
 <pre id="pre">
