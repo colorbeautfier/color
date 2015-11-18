@@ -1,5 +1,8 @@
 /**
  * Created by ddavid on 2015-11-16.
+ *
+ *
+ * 테스트 문서 https://code.jquery.com/jquery-2.1.4.js
  */
 /**
  *
@@ -14,33 +17,30 @@ var colorScripting = {
     },
 
     init: function (name) {
-
     },
 
     start: function () {
-        return this.controller.execute();
+        return this.parser.execute();
     },
 
     setContent: function (content) {
-        this.controller.setContent(content);
+        this.parser.setContent(content);
     },
 
     initLanguage: function (languageName, name) {
-        this.controller.sequenceLogic = this.languages[languageName][name].sequenceLogic;
+        this.parser.sequenceLogic = this.languages[languageName][name].sequenceLogic;
     },
 
     setLanguage: function (languageName, name, language) {
-
         if (typeof this.languages[languageName] == 'undefined') {
             this.languages[languageName] = {};
         }
-
         this.languages[languageName][name] = language;
     },
 
     languages: {},
 
-    controller: null
+    parser: null
 };
 
 (function () {
@@ -64,29 +64,44 @@ var colorScripting = {
             regExp: /[0-9]+/g,
             color: "#ff2222"
         }, {
-            regExp: /\bfunction|\bfor|\bwhile|\bvar|\bin|\bif|\belse/g,
+            regExp: /\b(function|for|while|var|in|if|else)\b/g,
             //regExp : /function|for|while|var|in|if|else/g,
             color: "#ED18ED"
         }, {
-            regExp: /\breturn|\btrue|\bnull|\bfalse/g,
+            regExp: /\b(return|true|null|false)\b/g,
             color: "#250DFF"
         }, {
-            regExp: /\bprototype|\bcall|\bapply|\blength/g,
+            regExp: /\b(prototype|call|apply|length)\b/g,
             color: "#250DFF"
         }, {
-            regExp: /\bthis/g,
+            regExp: /\b(this)\b/g,
             color: "#34BFED"
         }, {
-            regExp: /\bnew|\bObject/g,
+            regExp: /\b(new|Object)\b/g,
             color: "#34BFED"
         }, {
-            regExp: /\bbreak|\bcontinue/g,
+            regExp: /\b(break|continue)\b/g,
             color: "#34BFED"
+        }, {
+            regExp : /\b(window|Object|document)\b/g,
+            color: "#34BFED"
+        },{
+            regExp : /\b(Infinity|NaN|undefined|null|eval|uneval|isFinite|isNaN|parseFloat|parseInt|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|unescape)\b/g,  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+            color: "#34BFED",
+            explain : "built in "
+        },{
+            regExp : /\b(Object|Function|Boolean|Symbol|Error|EvalError|InternalError|RangeError|ReferenceError|SyntaxError|TypeError|URIError|Number|Math|String|RegExp)\b/g,  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+            color: "#34BFED",
+            explain : "built in 2"
+        },{
+            regExp : /\b(ArrayBuffer|DataView|Array|Int8Array|Uint8Array|Uint8ClampedArray|Int16Array|Uint16Array|Uint32Array|Float32Array|Float64Array)\b/g,  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
+            color: "#34BFED",
+            explain : "built in 3"
         }];
     }
 
     // controller 이거는 parsing 공통 부분
-    var controller = function () {
+    var parser = function () {
         this.contents = [];
         this.originalContent = "";
         this.changedcontent = "";
@@ -205,9 +220,19 @@ var colorScripting = {
         }
 
         this.parsingCallback = function (str, p1, p2, p3, p4, offset, s) {
+
+            var index =0;
+            // find index
+            for(var i=1; i<arguments.length; i++){
+                if(typeof arguments[i] === 'number'){
+                    index = arguments[i];
+                    break;
+                }
+            }
+
             var obj = {
-                startIndex: p1 + colorScripting.data.startIndex,
-                endIndex: p1 + str.length + colorScripting.data.startIndex,
+                startIndex: index+ colorScripting.data.startIndex,
+                endIndex: index + str.length + colorScripting.data.startIndex,
                 str: '<span style="color: ' + colorScripting.data.currentLogic.color + '">' + str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;') + '</span>'
             }
             colorScripting.data.convertedObjects.push(obj);
@@ -216,5 +241,5 @@ var colorScripting = {
     }
 
     colorScripting.setLanguage("javascript", "sh", new javascript_sh());
-    colorScripting.controller = new controller();
+    colorScripting.parser = new parser();
 })();
