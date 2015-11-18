@@ -73,8 +73,8 @@
       <file leaf-file-name="colorscript.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/private/sanghwa/lib/colorscript.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9204152" vertical-offset="1368" max-vertical-offset="4750">
-              <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.8027682" vertical-offset="4704" max-vertical-offset="5282">
+              <caret line="272" column="5" selection-start-line="272" selection-start-column="5" selection-end-line="272" selection-end-column="5" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -723,8 +723,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/private/sanghwa/lib/colorscript.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9204152" vertical-offset="1368" max-vertical-offset="4750">
-          <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.8027682" vertical-offset="4704" max-vertical-offset="5282">
+          <caret line="272" column="5" selection-start-line="272" selection-start-column="5" selection-end-line="272" selection-end-column="5" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

@@ -1,28 +1,39 @@
 /**
  * Created by ddavid on 2015-11-16.
  *
+ * beta 0.1 version
  *
- * 테스트 문서 https://code.jquery.com/jquery-2.1.4.js
+ *
+ *
+ *  == how to start ==  this is very easy way
+ *
+ * colorScripting.initLanguage("javascript", "sh");
+ * colorScripting.setContent(document.getElementById('before').value);
+ * var changedContent = colorScripting.start();
+ *
  */
 /**
- *
- *
  * @type {{data: {}, init: Function, setLanguage: Function}}
  */
 var colorScripting = {
     data: {
-        convertedObjects: [],
-        currentLogic: {},
+        convertedObjects: [], // this value is converted objects
+        currentLogic: {}, // logic is kind of one reular pattern
         startIndex: 0
     },
 
-    init: function (name) {
-    },
-
+    /**
+     *
+     * @returns {converted string}
+     */
     start: function () {
         return this.parser.execute();
     },
 
+    /**
+     * before start you have to set content
+     * @param content
+     */
     setContent: function (content) {
         this.parser.setContent(content);
     },
@@ -31,31 +42,188 @@ var colorScripting = {
         this.parser.sequenceLogic = this.languages[languageName][name].sequenceLogic;
     },
 
+
+    /**
+     * this is private function that we don't have to know
+     * @param languageName
+     * @param name
+     * @param language
+     */
     setLanguage: function (languageName, name, language) {
         if (typeof this.languages[languageName] == 'undefined') {
             this.languages[languageName] = {};
         }
         this.languages[languageName][name] = language;
     },
-
     languages: {},
-
     parser: null
 };
 
 (function () {
+
     /**
-     * 언어 셋팅
+     * this is common regular parser and working Sequentially FIFO [regular expression ]
      */
+    var parser = function () {
+        this.contents = [];
+        this.originalContent = "";
+        this.changedcontent = "";
+
+        this.sequenceLogic = "";
+
+        this.currentLogic = {};
+
+
+        this.setContent = function (content) {
+            this.contents = [{startIndex: 0, content: content}];
+            this.originalContent = content;
+        },
+
+        /**
+         * this is first called
+         */
+            this.execute = function () {
+                // before start, initialize all data
+                colorScripting.data.convertedObjects = [];
+                colorScripting.data.startIndex = 0;
+                var todoContent = this.contents;
+
+                for (var i = 0; i < this.sequenceLogic.length; i++) {
+                    this.currentLogic = this.sequenceLogic[i];
+                    colorScripting.data.currentLogic = this.currentLogic;
+
+                    var len = todoContent.length;
+                    for (var j = 0; j < len; j++) {
+                        colorScripting.data.startIndex = todoContent[j].startIndex;
+                        var changedContent = todoContent[j].content.replace(this.currentLogic.regExp, this.parsingCallback);
+                    }
+
+                    // compare and sort by start index
+                    colorScripting.data.convertedObjects.sort(this.compare);
+
+                    // get contents that is not conveted yet
+                    var objs = colorScripting.data.convertedObjects;
+                    todoContent = this.getContents(objs);
+
+                    console.log(todoContent);
+                }
+
+                this.changedcontent = this.convertedContent();
+                console.log(this.changedcontent);
+                return this.changedcontent;
+            },
+
+        /**
+         * make one string with converted array
+         */
+            this.convertedContent = function () {
+                var objs = colorScripting.data.convertedObjects;
+                var startIndex = 0;
+                var convertedContent = "";
+
+                for (var i = 0; i < objs.length; i++) {
+                    if (typeof objs[i].startIndex == 'undefined') {
+                        continue;
+                    }
+                    if (i == 0) {
+                        if (objs[i].startIndex == 0) {  // 시작일때
+                            convertedContent += this.escapeString(this.originalContent.substring(startIndex, objs[i].endIndex));
+                        } else {
+                            convertedContent += this.escapeString(this.originalContent.substring(0, objs[i].startIndex));
+                            convertedContent += objs[i].str;
+                        }
+                    } else {
+                        convertedContent += this.escapeString(this.originalContent.substring(startIndex, objs[i].startIndex));
+                        convertedContent += objs[i].str;
+                    }
+                    startIndex = objs[i].endIndex;
+
+                    if (i == objs.length - 1) {
+                        convertedContent += this.escapeString(this.originalContent.substring(objs[i].endIndex, this.originalContent.length));
+                    }
+                }
+                return convertedContent;
+            }
+
+        /**
+         * escape string
+         * @param value
+         * @returns {string}
+         */
+        this.escapeString = function (value) {
+            return value.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;');
+        }
+
+        this.getContents = function (objs) {
+            var contents = [];
+            var startIndex = 0;
+            var endIndex = 0;
+            for (var i = 0; i < objs.length; i++) {
+                if (typeof objs[i].startIndex == 'undefined') {
+                    continue;
+                }
+                if (i == 0 && objs[i].startIndex == 0) {
+                    startIndex = objs[i].endIndex;
+                } else if (i == objs.length - 1) {
+                    contents.push({
+                        startIndex: objs[i].endIndex,
+                        'content': this.originalContent.substring(objs[i].endIndex, this.originalContent.length)
+                    });
+                }
+                else {
+                    contents.push({
+                        startIndex: startIndex,
+                        'content': this.originalContent.substring(startIndex, objs[i].startIndex)
+                    });
+                    startIndex = objs[i].endIndex;
+                }
+            }
+            return contents;
+        }
+
+        this.compare = function (a, b) {
+            if (a.startIndex < b.startIndex)
+                return -1;
+            if (a.startIndex > b.startIndex)
+                return 1;
+            return 0;
+        }
+
+        // save converted data and index
+        this.parsingCallback = function (str, p1, p2, p3, p4, offset, s) {
+
+            var index =0;
+            // find index
+            for(var i=1; i<arguments.length; i++){
+                if(typeof arguments[i] === 'number'){
+                    index = arguments[i];
+                    break;
+                }
+            }
+
+            var obj = {
+                startIndex: index+ colorScripting.data.startIndex,
+                endIndex: index + str.length + colorScripting.data.startIndex,
+                str: '<span style="color: ' + colorScripting.data.currentLogic.color + '">' + str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;') + '</span>'
+            }
+            colorScripting.data.convertedObjects.push(obj);
+            return str;
+        }
+    }
+
+    /**
+     * here add your language regular expression.
+     */
+
 
     // javascript
     var javascript_sh = function () {
 
         this.sequenceLogic = [{
-            regExp: /\/\*[^]*?\*\//g, // 대주석
+            regExp: /\/\*[^]*?\*\//g, // comments multiline
             color: "#C1C7C9"
         }, {
-            regExp: /\/\/.*/g, // 일반주석
+            regExp: /\/\/.*/g, // comment
             color: "#C1C7C9"
         }, {
             regExp: /".*?"|'.*?'/g, // string
@@ -98,146 +266,6 @@ var colorScripting = {
             color: "#34BFED",
             explain : "built in 3"// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects
         }];
-    }
-
-    // controller 이거는 parsing 공통 부분
-    var parser = function () {
-        this.contents = [];
-        this.originalContent = "";
-        this.changedcontent = "";
-
-        this.sequenceLogic = "";
-
-        this.currentLogic = {};
-
-
-        this.setContent = function (content) {
-            this.contents = [{startIndex: 0, content: content}];
-            this.originalContent = content;
-        },
-
-            this.execute = function () {
-                // 초기화
-                colorScripting.data.convertedObjects = [];
-                colorScripting.data.startIndex = 0;
-                var todoContent = this.contents;
-
-                console.log(this.sequenceLogic);
-                console.log(this.sequenceLogic.length);
-                for (var i = 0; i < this.sequenceLogic.length; i++) {
-                    this.currentLogic = this.sequenceLogic[i];
-                    colorScripting.data.currentLogic = this.currentLogic;
-
-                    var len = todoContent.length;
-                    for (var j = 0; j < len; j++) {
-                        colorScripting.data.startIndex = todoContent[j].startIndex;
-                        var changedContent = todoContent[j].content.replace(this.currentLogic.regExp, this.parsingCallback);
-                    }
-                    // compare 링
-                    colorScripting.data.convertedObjects.sort(this.compare);
-
-                    // 태그와 태그 사이 컨텐츠 구분
-                    var objs = colorScripting.data.convertedObjects;
-                    todoContent = this.getContents(objs);
-
-                    console.log(todoContent);
-                }
-
-                this.changedcontent = this.convertedContent();
-                console.log(this.changedcontent);
-
-                return this.changedcontent;
-            },
-
-            this.convertedContent = function () {
-                var objs = colorScripting.data.convertedObjects;
-                var startIndex = 0;
-                var convertedContent = "";
-
-                for (var i = 0; i < objs.length; i++) {
-                    if (typeof objs[i].startIndex == 'undefined') {
-                        continue;
-                    }
-                    if (i == 0) {
-                        if (objs[i].startIndex == 0) {  // 시작일때
-                            convertedContent += this.escapeString(this.originalContent.substring(startIndex, objs[i].endIndex));
-                        } else {
-                            convertedContent += this.escapeString(this.originalContent.substring(0, objs[i].startIndex));
-                            convertedContent += objs[i].str;
-                        }
-                    } else {
-                        convertedContent += this.escapeString(this.originalContent.substring(startIndex, objs[i].startIndex));
-                        convertedContent += objs[i].str;
-                    }
-                    startIndex = objs[i].endIndex;
-
-                    if (i == objs.length - 1) {
-                        convertedContent += this.escapeString(this.originalContent.substring(objs[i].endIndex, this.originalContent.length));
-                    }
-
-                }
-                return convertedContent;
-
-            }
-
-        this.escapeString = function (value) {
-            return value.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;');
-        }
-
-        this.getContents = function (objs) {
-            var contents = [];
-            var startIndex = 0;
-            var endIndex = 0;
-            for (var i = 0; i < objs.length; i++) {
-                if (typeof objs[i].startIndex == 'undefined') {
-                    continue;
-                }
-                if (i == 0 && objs[i].startIndex == 0) {
-                    startIndex = objs[i].endIndex;
-                } else if (i == objs.length - 1) {
-                    contents.push({
-                        startIndex: objs[i].endIndex,
-                        'content': this.originalContent.substring(objs[i].endIndex, this.originalContent.length)
-                    });
-                }
-                else {
-                    contents.push({
-                        startIndex: startIndex,
-                        'content': this.originalContent.substring(startIndex, objs[i].startIndex)
-                    });
-                    startIndex = objs[i].endIndex;
-                }
-            }
-            return contents;
-        }
-
-        this.compare = function (a, b) {
-            if (a.startIndex < b.startIndex)
-                return -1;
-            if (a.startIndex > b.startIndex)
-                return 1;
-            return 0;
-        }
-
-        this.parsingCallback = function (str, p1, p2, p3, p4, offset, s) {
-
-            var index =0;
-            // find index
-            for(var i=1; i<arguments.length; i++){
-                if(typeof arguments[i] === 'number'){
-                    index = arguments[i];
-                    break;
-                }
-            }
-
-            var obj = {
-                startIndex: index+ colorScripting.data.startIndex,
-                endIndex: index + str.length + colorScripting.data.startIndex,
-                str: '<span style="color: ' + colorScripting.data.currentLogic.color + '">' + str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;') + '</span>'
-            }
-            colorScripting.data.convertedObjects.push(obj);
-            return str;
-        }
     }
 
     colorScripting.setLanguage("javascript", "sh", new javascript_sh());
