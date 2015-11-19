@@ -18,17 +18,7 @@
                     //alert( "Data Saved: " + msg );
                     $('#before').html(msg);
                 });
-        function callbackNewline(str, a,b,c ){
-            console.log(str);
-            if(str.trim() ==''){
-                str ="<span ></span>"
-            }
-            return "<div style='height:20px;white-space: nowrap;'>" + str +"</div>"
-            }
 
-        function callbackLineFirstWhitespace(str, a,b,c ){
-            return str.replace(/\s/g, '&nbsp;');
-        }
         function change () {
             colorScripting.initLanguage("javascript", "sh");
             colorScripting.setContent(document.getElementById('before').value);
@@ -62,17 +52,17 @@
             return "<여기>"+str+"</여기>";
         }
 
-        var currentTemplate = 0;
+        var currentTemplate = 1;
 
         function changeUiColor(){
             if(currentTemplate == 0){
                 currentTemplate = 1;
-                document.getElementById('after').style.backgroundColor ='#000000';
-                document.getElementById('after').style.color ='#ffffff';
+                document.getElementById('test').style.backgroundColor ='#000000';
+                document.getElementById('test').style.color ='#ffffff';
             }else{
                 currentTemplate = 0;
-                document.getElementById('after').style.backgroundColor ='#ffffff';
-                document.getElementById('after').style.color ='#000000';
+                document.getElementById('test').style.backgroundColor ='#ffffff';
+                document.getElementById('test').style.color ='#000000';
             }
         }
 
@@ -82,7 +72,7 @@
 </head>
 <body>
 <button onclick="change()">changeBtn </button>
-<button onclick="colorScripting.util.clickcopy('after')">copyBtn </button>
+<button onclick="colorScripting.util.clickcopy('content')">copyBtn </button>
 <button onclick="changeUiColor()">changeUiColor</button>
 <br>
 
@@ -96,19 +86,12 @@
 <div id="content" style="min-height:300px; " >
     <div id="afterLeft" style="float:left; ">
     </div>
-<div id="allFrame" contenteditable="true" onclick="colorScripting.util.clickcopy();//document.execCommand('selectAll',false,null)">
-
-
-
-
-<div id="after">
-    <div id="test" style='overflow-x: auto;     overflow-y: hidden; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255);'></div>
+<div id="allFrame" >
+<div style="font-size: 1px; color:#000000;height: 1px;width:1px;"></div>
+<div id="after" >
+    <div   id="test" style='margin:5px; border: solid 1px; min-width:300px;max-width:1000px;overflow-x: auto;     overflow-y: hidden; background-color: rgb(0, 0, 0) !important; color: rgb(255, 255, 255);'></div>
 </div>
-
-
 </div>
-
-
 </div>
 </body>
 </html>

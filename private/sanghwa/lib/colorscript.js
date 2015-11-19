@@ -225,6 +225,12 @@ var colorScripting = {
                 endIndex: index + str.length + colorScripting.data.startIndex,
                 str: '<span style="color: ' + colorScripting.data.currentLogic.color + '">' + str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;') + '</span>'
             }
+
+            // process function 이 있는 경우 아래의 케이스를 탄다.
+            if(typeof  colorScripting.data.currentLogic.customProcess  != 'undefined'){
+                obj.str = colorScripting.data.currentLogic.customProcess  (colorScripting.data.currentLogic, str);
+            }
+
             colorScripting.data.convertedObjects.push(obj);
             return str;
         }
@@ -240,7 +246,14 @@ var colorScripting = {
 
         this.sequenceLogic = [{
             regExp: /\/\*[^]*?\*\//g, // comments multiline
-            color: "#C1C7C9"
+            color: "#C1C7C9",
+            customProcess : function(logic, str){
+                var arr= str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;').split('\n');
+                for(var i=0; i<arr.length; i++){
+                    arr[i]= '<span style="color: ' + logic.color + '">' + arr[i] + '</span>'
+                }
+                return arr.join('\n');
+            }
         }, {
             regExp: /\/\/.*/g, // comment
             color: "#C1C7C9"
