@@ -1,0 +1,44 @@
+    
+
+/**
+ * 주석은 언제 작업하나?? ㅡ.ㅡ;
+ */
+(function(){
+
+    var MailResizer = function(){
+    }
+    MailResizer.prototype.data ={
+        isMode : 0, // 0 default, 1 cotent resized, 2 only image resized
+        isVertical : 1,  // 0 false, 1 true,
+        imageObjectList : [] //  isMode가 2인경우에만 사용
+    };
+
+    // 텍스트 테스트
+    var text = "<span id='hoho'>" + '<span id="haha">' ;
+    var arr = [];
+    var json = {};
+
+    // 이중 for문 테스트
+    for(var i=0; i<arr.length; i++){
+        // 로그 테스트
+        console.log("haha");
+        for(var i in json){
+            if(i.key == null){
+                return ;
+            }else if(i.key == true){
+
+            }else if(i.key == false){
+
+            }  /**  1단 테스트 */
+            /* 주주석 */else{
+                console.log('주석 테스트');
+            }
+            /**
+
+              이단 테스트 function hohoho 이거는 2단 주석 테스트 입니다 )()()ddjkljkj  어느 정도 길어지는지 확인해볼까?? 12340329393939393939399393939393939
+             */
+        }
+    }
+    var hello = this.call(data);
+    window.MailResizer = MailResizer;
+})();
