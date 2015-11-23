@@ -154,6 +154,7 @@ var colorScripting = {
          */
         this.convertedContent = function () {
             var objs = colorScripting.data.convertedObjects;
+            console.log(objs);
             var startIndex = 0;
             var convertedContent = "";
 
@@ -163,12 +164,11 @@ var colorScripting = {
                 }
                 if (i == 0) {
                     if (objs[i].startIndex == 0) {  // 시작일때
-                        convertedContent += this.escapeString(this.originalContent.substring(startIndex, objs[i].endIndex));
                     } else {
                         convertedContent += this.escapeString(this.originalContent.substring(0, objs[i].startIndex));
-                        convertedContent += objs[i].str;
-
+                        //convertedContent += objs[i].str;
                     }
+                    convertedContent += objs[i].str;
                 } else {
                     convertedContent += this.escapeString(this.originalContent.substring(startIndex, objs[i].startIndex));
                     convertedContent += objs[i].str;
@@ -179,6 +179,10 @@ var colorScripting = {
                 if (i == objs.length - 1) {
                     convertedContent += this.escapeString(this.originalContent.substring(objs[i].endIndex, this.originalContent.length));
                 }
+            }
+
+            if(objs.length ==0){
+                convertedContent = this.originalContent;
             }
 
             return convertedContent;
@@ -211,14 +215,22 @@ var colorScripting = {
                     });
                     startIndex = objs[i].endIndex;
 
-                    if (i == objs.length - 1) {
+                    /*if (i == objs.length - 1) {
                         contents.push({
                             startIndex: objs[i].endIndex,
                             'content': this.originalContent.substring(objs[i].endIndex, this.originalContent.length)
                         });
-                    }
+                    }*/
                 }
             }
+
+            if (startIndex < this.originalContent.length) {
+                contents.push({
+                    startIndex: startIndex,
+                    'content': this.originalContent.substring(startIndex, this.originalContent.length)
+                });
+            }
+
             return contents;
         }
 
@@ -248,11 +260,14 @@ var colorScripting = {
                 str: '<span style="color: ' + colorScripting.data.currentLogic.color + '">' + str.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;') + '</span>'
             }
 
-            console.log("parsingCallback : " + str);
+
             // process function 이 있는 경우 아래의 케이스를 탄다.
             if (typeof  colorScripting.data.currentLogic.customProcess != 'undefined') {
                 obj.str = colorScripting.data.currentLogic.customProcess(colorScripting.data.currentLogic, str);
             }
+
+            console.log("parsingCallback : " + str);
+            console.log("parsingCallback : " + obj.str );
 
             colorScripting.data.convertedObjects.push(obj);
             return str;
