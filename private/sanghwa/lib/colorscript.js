@@ -194,7 +194,7 @@ var colorScripting = {
          * @returns {string}
          */
         this.escapeString = function (value) {
-            return value.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;').replace(/_/g, '&nbsp;');
+            return value.replace(/&/gm, '&amp;').replace(/</gm, '&lt;').replace(/>/gm, '&gt;');
         }
 
         this.getContents = function (objs) {
