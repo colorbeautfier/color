@@ -130,7 +130,7 @@ var colorScripting = {
                 this.changedcontent = this.changedcontent.replace(/.*?\n|.*>/g, this.callbackNewline);
                 console.log("$$$$$$$$$$$$$$$$$$$ converted Newline $$$$$$$$$$$$$$$$$$$$$$");
                 console.log(this.changedcontent);
-                this.changedcontent = this.changedcontent.replace(/>.+?\s?[a-zA-Z0-9(){}]/g, this.callbackLineFirstWhitespace);
+                this.changedcontent = this.changedcontent.replace(/>.+?\s?[a-zA-Z0-9(){}\[\]]/g, this.callbackLineFirstWhitespace);
                 console.log("$$$$$$$$$$$$$$$$$$$ converted whiteSpace $$$$$$$$$$$$$$$$$$$$$$");
                 console.log(this.changedcontent);
 
@@ -146,7 +146,8 @@ var colorScripting = {
             };
 
         this.callbackLineFirstWhitespace = function (str, a, b, c) {
-            return str.replace(/\s/g, '&nbsp;');
+
+            return str.replace(/\t/g, '&nbsp;&nbsp;&nbsp;').replace(/\s/g, '&nbsp;');
         };
 
         /**
@@ -308,11 +309,11 @@ var colorScripting = {
             //regExp : /function|for|while|var|in|if|else/g,
             color: "#ED18ED"
         }, {
-            regExp: /\b(return|true|null|false)\b/g,
-            color: "#250DFF"
+            regExp: /\b(true|null|false)\b/g,
+            color: "#DBC4BD"
         }, {
-            regExp: /\b(prototype|call|apply|length)\b/g,
-            color: "#250DFF"
+            regExp: /\b(return|prototype|call|apply|length)\b/g,
+            color: "#43D10F"
         }, {
             regExp: /\b(this)\b/g,
             color: "#34BFED"
