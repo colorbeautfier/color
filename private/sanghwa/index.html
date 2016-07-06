@@ -39,12 +39,13 @@
 
         $.ajax({
             method: "GET",
-            url: "testjs",
+            url: "lib/colorscript.js",
             data: { name: "John", location: "Boston" }
         })
                 .done(function( msg ) {
                     //alert( "Data Saved: " + msg );
-                    $('#before').html(msg);
+					//msg = msg.replace(/\r?\n/g, "\r\n");
+                    $('#before').text(msg);
                 });
 
         function change () {
@@ -136,7 +137,7 @@
 
     <div class="starter-template">
         <div>
-            <textarea id="before" style="width:100%; min-height:600px;">
+            <textarea id="before" style="width:100%; min-height:600px; white-space:pre-wrap;">
 
             </textarea>
         </div>

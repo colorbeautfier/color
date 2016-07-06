@@ -93,12 +93,12 @@ var colorScripting = {
                     this.currentLogic = this.sequenceLogic[i];
                     colorScripting.data.currentLogic = this.currentLogic;
 
-                    console.log("###############################");
-                    console.log(colorScripting.data.currentLogic.regExp );
+                    //console.log("###############################");
+                    //console.log(colorScripting.data.currentLogic.regExp );
                     for(var k=0; k<todoContent.length;k++){
 
-                        console.log('start Index : ' + todoContent[k].startIndex);
-                        console.log('content : ' + todoContent[k].content);
+                        //console.log('start Index : ' + todoContent[k].startIndex);
+                        //console.log('content : ' + todoContent[k].content);
                     }
 
 
@@ -116,23 +116,23 @@ var colorScripting = {
                     todoContent = this.getContents(objs);
 
 
-                   // console.log(todoContent);
+                   // //console.log(todoContent);
                 }
 
                 this.changedcontent = this.convertedContent();
-                console.log("$$$$$$$$$$$$$$$$$$$ converted Content $$$$$$$$$$$$$$$$$$$$$$");
-                console.log(this.changedcontent);
+                //console.log("$$$$$$$$$$$$$$$$$$$ converted Content $$$$$$$$$$$$$$$$$$$$$$");
+                //console.log(this.changedcontent);
 
                 //
 
                 //
 
                 this.changedcontent = this.changedcontent.replace(/.*?\n|.*>/g, this.callbackNewline);
-                console.log("$$$$$$$$$$$$$$$$$$$ converted Newline $$$$$$$$$$$$$$$$$$$$$$");
-                console.log(this.changedcontent);
+                //console.log("$$$$$$$$$$$$$$$$$$$ converted Newline $$$$$$$$$$$$$$$$$$$$$$");
+                //console.log(this.changedcontent);
                 this.changedcontent = this.changedcontent.replace(/>.+?\s?[a-zA-Z0-9(){}\[\]]/g, this.callbackLineFirstWhitespace);
-                console.log("$$$$$$$$$$$$$$$$$$$ converted whiteSpace $$$$$$$$$$$$$$$$$$$$$$");
-                console.log(this.changedcontent);
+                //console.log("$$$$$$$$$$$$$$$$$$$ converted whiteSpace $$$$$$$$$$$$$$$$$$$$$$");
+                //console.log(this.changedcontent);
 
                 return this.changedcontent;
             },
@@ -155,7 +155,7 @@ var colorScripting = {
          */
         this.convertedContent = function () {
             var objs = colorScripting.data.convertedObjects;
-            console.log(objs);
+            //console.log(objs);
             var startIndex = 0;
             var convertedContent = "";
 
@@ -267,8 +267,8 @@ var colorScripting = {
                 obj.str = colorScripting.data.currentLogic.customProcess(colorScripting.data.currentLogic, str);
             }
 
-            console.log("parsingCallback : " + str);
-            console.log("parsingCallback : " + obj.str );
+            //console.log("parsingCallback : " + str);
+            //console.log("parsingCallback : " + obj.str );
 
             colorScripting.data.convertedObjects.push(obj);
             return str;
@@ -309,10 +309,10 @@ var colorScripting = {
             //regExp : /function|for|while|var|in|if|else/g,
             color: "#ED18ED"
         }, {
-            regExp: /\b(true|null|false)\b/g,
-            color: "#DBC4BD"
+            regExp: /\b(return|true|null|false)\b/g,
+            color: "#250DFF"
         }, {
-            regExp: /\b(return|prototype|call|apply|length)\b/g,
+            regExp: /\b(prototype|call|apply|length)\b/g,
             color: "#43D10F"
         }, {
             regExp: /\b(this)\b/g,
@@ -343,11 +343,19 @@ var colorScripting = {
 
     var util = function () {
         this.clickcopy = function (id) {
-            var testDiv = document.getElementById(id);
-            this.execCommandOnElement(testDiv, "selectAll");
-            this.execCommandOnElement(testDiv, "Copy");
-            this.execCommandOnElement(testDiv, "Unselect");
-            alert("copied ");
+		
+			var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+			if(isChrome){
+				var testDiv = document.getElementById(id);
+				this.execCommandOnElement(testDiv, "selectAll");
+				this.execCommandOnElement(testDiv, "Copy");
+				this.execCommandOnElement(testDiv, "Unselect");
+				alert("copied ");
+			}else{
+				alert("currently only chrome is available ");
+			}
+			
+            
         }
 
         this.execCommandOnElement = function (el, commandName, value) {
